@@ -21,7 +21,8 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary' },
         { name: 'twitter:title', content: 'Eliot Boutherin - Platform Engineer AWS' },
         { name: 'twitter:description', content: 'J\'aide les entreprises à concevoir, automatiser et faire évoluer leurs infrastructures AWS avec Terraform.' },
-        { name: 'author', content: 'Eliot Boutherin' }
+        { name: 'author', content: 'Eliot Boutherin' },
+        { name: 'google-site-verification', content: 'ETIOPHBjOIXpdXJDu8YP0NS7DvYF2UhunUqKtEEWzUg' }
       ],
       link: [
         { rel: 'canonical', href: 'https://ebouther.github.io/' }

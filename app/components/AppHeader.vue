@@ -11,9 +11,9 @@
 
 <script setup lang="ts">
 const links = [
-  { href: '#about', label: 'À propos' },
   { href: '#skills', label: 'Compétences' },
   { href: '#experience', label: 'Expérience' },
+  { href: '#recommendations', label: 'Recommandations' },
   { href: '#contact', label: 'Contact' },
 ]
 </script>
