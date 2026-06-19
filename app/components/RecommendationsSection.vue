@@ -1,9 +1,28 @@
 <template>
   <section id="recommendations" class="section">
     <div class="container">
-      <h2 class="section-title">Recommandations</h2>
+      <Motion
+        as="h2"
+        class="section-title"
+        :initial="{ opacity: 0, y: 20 }"
+        :while-in-view="{ opacity: 1, y: 0 }"
+        :viewport="{ once: true }"
+        :transition="{ duration: 0.5 }"
+      >
+        Recommandations
+      </Motion>
       <div class="recommendations-grid">
-        <div v-for="(rec, i) in recommendations" :key="i" class="rec-card">
+        <Motion
+          v-for="(rec, i) in recommendations"
+          :key="i"
+          as="div"
+          class="rec-card"
+          :initial="{ opacity: 0, y: 30, scale: 0.97 }"
+          :while-in-view="{ opacity: 1, y: 0, scale: 1 }"
+          :viewport="{ once: true }"
+          :transition="{ delay: i * 0.12, duration: 0.5, ease: 'easeOut' }"
+          :while-hover="{ y: -4, transition: { duration: 0.2 } }"
+        >
           <div class="rec-header">
             <div class="rec-avatar">{{ rec.initials }}</div>
             <div>
@@ -14,8 +33,7 @@
           </div>
           <p class="rec-text">{{ rec.text }}</p>
           <p v-if="rec.highlight" class="rec-highlight">{{ rec.highlight }}</p>
-          <p class="rec-source">{{ rec.source }}</p>
-        </div>
+        </Motion>
       </div>
     </div>
   </section>
@@ -29,32 +47,28 @@ const recommendations = [
     role: 'Dev Fullstack',
     date: '18 juin 2020',
     text: 'Développeur Node.js solide. Capable de debugger des problèmes complexes — la formation 42 se sent. Sérieux et professionnel dans sa pratique du remote — toujours disponible, notre collaboration a été efficace.',
-    highlight: 'Eliot a, à lui seul, mis en place le nouvel environnement de développement local pour l\'ensemble de l\'équipe (frontend et backend) durant une période cruciale de notre projet.',
-    source: 'Ancien collègue'
+    highlight: 'Eliot a, à lui seul, mis en place le nouvel environnement de développement local pour l\'ensemble de l\'équipe (frontend et backend) durant une période cruciale de notre projet.'
   },
   {
     initials: 'OB',
     name: 'Olivier B.',
     role: 'Développeur Backend, DevOps',
     date: '12 mai 2020',
-    text: 'Ayant collaboré avec Eliot sur le projet TRIBRating, je peux mesurer son autonomie et sa capacité à répondre efficacement aux besoins qui se sont présentés. Ses contributions ont été très structurantes sur ce projet. Il se repère facilement dans les écosystèmes des logiciels libres, c\'est un grand atout !',
-    source: 'Ancien collègue'
+    text: 'Ayant collaboré avec Eliot sur le projet TRIBRating, je peux mesurer son autonomie et sa capacité à répondre efficacement aux besoins qui se sont présentés. Ses contributions ont été très structurantes sur ce projet. Il se repère facilement dans les écosystèmes des logiciels libres, c\'est un grand atout !'
   },
   {
     initials: 'DT',
     name: 'Damien T.',
     role: 'Dev Frontend',
     date: '11 mai 2020',
-    text: 'Travailler avec Eliot a été très agréable. Très motivé, il était toujours prêt à trouver des solutions dans n\'importe quelle situation. Fiable et flexible, je recommande Eliot, et re-travaillerai avec lui avec grand plaisir.',
-    source: 'Ancien collègue'
+    text: 'Travailler avec Eliot a été très agréable. Très motivé, il était toujours prêt à trouver des solutions dans n\'importe quelle situation. Fiable et flexible, je recommande Eliot, et re-travaillerai avec lui avec grand plaisir.'
   },
   {
     initials: 'JB',
     name: 'Jean C.',
     role: 'Dev FrontEnd',
     date: '11 mai 2020',
-    text: 'J\'ai bossé pas mal de temps avec Eliot et c\'est qqun de très pro et appliqué. Il est à l\'écoute des besoins et arrive toujours à résoudre une situation même si elle sort un peu de son périmètre d\'activité. Je le recommande vivement.',
-    source: 'Ancien collègue'
+    text: 'J\'ai bossé pas mal de temps avec Eliot et c\'est qqun de très pro et appliqué. Il est à l\'écoute des besoins et arrive toujours à résoudre une situation même si elle sort un peu de son périmètre d\'activité. Je le recommande vivement.'
   }
 ]
 </script>

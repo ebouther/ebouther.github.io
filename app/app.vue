@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <AppHeader />
-    <NuxtPage />
-    <AppFooter />
+  <div class="app-wrapper">
+    <BackgroundAnimation />
+    <div class="app-content">
+      <AppHeader />
+      <NuxtPage />
+      <AppFooter />
+    </div>
   </div>
 </template>
 
@@ -31,3 +34,15 @@ useHead({
   ]
 })
 </script>
+
+<style>
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
+}
+</style>

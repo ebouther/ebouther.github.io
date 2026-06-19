@@ -1,9 +1,27 @@
 <template>
   <section id="experience" class="section">
     <div class="container">
-      <h2 class="section-title">Mon <span>parcours</span></h2>
+      <Motion
+        as="h2"
+        class="section-title"
+        :initial="{ opacity: 0, y: 20 }"
+        :while-in-view="{ opacity: 1, y: 0 }"
+        :viewport="{ once: true }"
+        :transition="{ duration: 0.5 }"
+      >
+        Mon <span>parcours</span>
+      </Motion>
       <div class="timeline">
-        <div v-for="(exp, i) in experiences" :key="i" class="timeline-card">
+        <Motion
+          v-for="(exp, i) in experiences"
+          :key="i"
+          as="div"
+          class="timeline-card"
+          :initial="{ opacity: 0, x: -20 }"
+          :while-in-view="{ opacity: 1, x: 0 }"
+          :viewport="{ once: true }"
+          :transition="{ delay: i * 0.15, duration: 0.5, ease: 'easeOut' }"
+        >
           <div class="timeline-dot" />
           <div v-if="i < experiences.length - 1" class="timeline-line" />
           <div class="timeline-content">
@@ -18,7 +36,7 @@
               <span v-for="tag in exp.tags" :key="tag" class="tag">{{ tag }}</span>
             </div>
           </div>
-        </div>
+        </Motion>
       </div>
     </div>
   </section>

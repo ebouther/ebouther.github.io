@@ -2,18 +2,52 @@
   <section class="hero">
     <div class="container hero-inner">
       <div class="hero-content">
-        <p class="hero-badge">Disponible en freelance</p>
-        <h1 class="hero-title">
+        <Motion
+          as="p"
+          class="hero-badge"
+          :initial="{ opacity: 0, y: -12 }"
+          :animate="{ opacity: 1, y: 0 }"
+          :transition="{ delay: 0.2, duration: 0.6, ease: 'easeOut' }"
+        >
+          Disponible en freelance
+        </Motion>
+        <Motion
+          as="h1"
+          class="hero-title"
+          :initial="{ opacity: 0, y: 30 }"
+          :animate="{ opacity: 1, y: 0 }"
+          :transition="{ delay: 0.4, type: 'spring', stiffness: 100, damping: 15 }"
+        >
           Eliot <span class="gradient-text">Boutherin</span>
-        </h1>
-        <p class="hero-subtitle">Platform Engineer AWS | Terraform | Node.js</p>
-        <p class="hero-description">
+        </Motion>
+        <Motion
+          as="p"
+          class="hero-subtitle"
+          :initial="{ opacity: 0 }"
+          :animate="{ opacity: 1 }"
+          :transition="{ delay: 0.6, duration: 0.5 }"
+        >
+          Platform Engineer AWS | Terraform | Node.js
+        </Motion>
+        <Motion
+          as="p"
+          class="hero-description"
+          :initial="{ opacity: 0, y: 20 }"
+          :animate="{ opacity: 1, y: 0 }"
+          :transition="{ delay: 0.8, duration: 0.6, ease: 'easeOut' }"
+        >
           J'aide les entreprises à concevoir, automatiser et faire évoluer leurs infrastructures AWS avec Terraform, tout en développant des API backend performantes et maintenables.
-        </p>
-        <div class="hero-actions">
+        </Motion>
+        <Motion
+          as="div"
+          class="hero-actions"
+          :initial="{ opacity: 0, y: 20 }"
+          :animate="{ opacity: 1, y: 0 }"
+          :transition="{ delay: 1, duration: 0.5, ease: 'easeOut' }"
+        >
           <a href="#contact" class="btn btn-primary">Me contacter</a>
           <a href="#experience" class="btn btn-secondary">Voir mon parcours</a>
-        </div>
+        </Motion>
       </div>
     </div>
   </section>

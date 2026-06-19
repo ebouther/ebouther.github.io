@@ -1,7 +1,18 @@
 <template>
-  <header class="header">
+  <header
+    class="header"
+    :style="{
+      height: headerHeight + 'px',
+    }"
+  >
     <div class="container header-inner">
-      <a href="#" class="logo">EB</a>
+      <a
+        href="#"
+        class="logo"
+        :style="{ fontSize: logoSize + 'rem' }"
+      >
+        EB
+      </a>
       <nav class="nav">
         <a v-for="link in links" :key="link.href" :href="link.href" class="nav-link">{{ link.label }}</a>
       </nav>
@@ -16,6 +27,16 @@ const links = [
   { href: '#recommendations', label: 'Recommandations' },
   { href: '#contact', label: 'Contact' },
 ]
+
+const { scrollY } = useScroll()
+const headerHeight = useSpring(
+  useTransform(scrollY, [0, 100], [72, 56]),
+  { stiffness: 200, damping: 20 }
+)
+const logoSize = useSpring(
+  useTransform(scrollY, [0, 100], [1.5, 1.2]),
+  { stiffness: 200, damping: 20 }
+)
 </script>
 
 <style scoped>
@@ -28,13 +49,18 @@ const links = [
   background: rgba(10, 10, 15, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .logo {

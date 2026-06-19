@@ -1,27 +1,46 @@
 <template>
   <section id="contact" class="section">
     <div class="container">
-      <h2 class="section-title">Me <span>contacter</span></h2>
+      <Motion
+        as="h2"
+        class="section-title"
+        :initial="{ opacity: 0, y: 20 }"
+        :while-in-view="{ opacity: 1, y: 0 }"
+        :viewport="{ once: true }"
+        :transition="{ duration: 0.5 }"
+      >
+        Me <span>contacter</span>
+      </Motion>
       <div class="contact-content">
-        <p class="contact-text">
+        <Motion
+          as="p"
+          class="contact-text"
+          :initial="{ opacity: 0, y: 15 }"
+          :while-in-view="{ opacity: 1, y: 0 }"
+          :viewport="{ once: true }"
+          :transition="{ duration: 0.5 }"
+        >
           Vous avez un projet cloud ou backend ? Discutons-en.
-        </p>
+        </Motion>
         <div class="contact-links">
-          <a :href="`mailto:${email}`" class="contact-card">
-            <span class="contact-icon">✉️</span>
-            <span class="contact-label">Email</span>
-            <span class="contact-value">{{ email }}</span>
-          </a>
-          <a href="https://www.linkedin.com/in/eliot-boutherin/" target="_blank" rel="noopener" class="contact-card">
-            <span class="contact-icon">💼</span>
-            <span class="contact-label">LinkedIn</span>
-            <span class="contact-value">in/eliot-boutherin</span>
-          </a>
-          <a href="https://www.malt.fr/profile/eliotboutherin" target="_blank" rel="noopener" class="contact-card">
-            <span class="contact-icon">🏆</span>
-            <span class="contact-label">Malt</span>
-            <span class="contact-value">eliotboutherin</span>
-          </a>
+          <Motion
+            v-for="(link, i) in contactLinks"
+            :key="link.label"
+            as="a"
+            :href="link.href"
+            :target="link.external ? '_blank' : undefined"
+            :rel="link.external ? 'noopener' : undefined"
+            class="contact-card"
+            :initial="{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }"
+            :while-in-view="{ opacity: 1, x: 0 }"
+            :viewport="{ once: true }"
+            :transition="{ delay: 0.2 + i * 0.1, duration: 0.4, ease: 'easeOut' }"
+            :while-hover="{ x: 6, transition: { duration: 0.2 } }"
+          >
+            <span class="contact-icon">{{ link.icon }}</span>
+            <span class="contact-label">{{ link.label }}</span>
+            <span class="contact-value">{{ link.value }}</span>
+          </Motion>
         </div>
       </div>
     </div>
@@ -30,6 +49,12 @@
 
 <script setup lang="ts">
 const email = 'eliot.boutherin@gmail.com'
+
+const contactLinks = [
+  { label: 'Email', icon: '✉️', value: email, href: `mailto:${email}`, external: false },
+  { label: 'LinkedIn', icon: '💼', value: 'in/eliot-boutherin', href: 'https://www.linkedin.com/in/eliot-boutherin/', external: true },
+  { label: 'Malt', icon: '🏆', value: 'eliotboutherin', href: 'https://www.malt.fr/profile/eliotboutherin', external: true },
+]
 </script>
 
 <style scoped>

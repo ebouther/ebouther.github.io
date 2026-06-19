@@ -1,14 +1,32 @@
 <template>
   <section id="skills" class="section">
     <div class="container">
-      <h2 class="section-title">Mes <span>compétences</span></h2>
+      <Motion
+        as="h2"
+        class="section-title"
+        :initial="{ opacity: 0, y: 20 }"
+        :while-in-view="{ opacity: 1, y: 0 }"
+        :viewport="{ once: true }"
+        :transition="{ duration: 0.5 }"
+      >
+        Mes <span>compétences</span>
+      </Motion>
       <div class="skills-grid">
-        <div v-for="category in skills" :key="category.title" class="skill-card">
+        <Motion
+          v-for="(category, i) in skills"
+          :key="category.title"
+          as="div"
+          class="skill-card"
+          :initial="{ opacity: 0, y: 30 }"
+          :while-in-view="{ opacity: 1, y: 0 }"
+          :viewport="{ once: true }"
+          :transition="{ delay: i * 0.08, duration: 0.5, ease: 'easeOut' }"
+        >
           <h3 class="skill-category">{{ category.title }}</h3>
           <div class="skill-items">
             <span v-for="item in category.items" :key="item" class="tag">{{ item }}</span>
           </div>
-        </div>
+        </Motion>
       </div>
     </div>
   </section>
