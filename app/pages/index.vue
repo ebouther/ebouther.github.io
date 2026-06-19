@@ -1,6 +1,7 @@
 <template>
   <main>
     <HeroSection />
+    <MetricsBar />
     <SkillsSection />
     <ExperienceSection />
     <RecommendationsSection />
