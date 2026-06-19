@@ -7,11 +7,24 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Eliot Boutherin - DevOps AWS & Développeur Backend',
+      title: 'Eliot Boutherin - Platform Engineer AWS & Développeur Backend',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       meta: [
-        { name: 'description', content: 'Portfolio de Eliot Boutherin - Expert DevOps AWS et Développeur Backend en freelance' }
+        { name: 'description', content: 'Platform Engineer AWS spécialisé en Terraform, CI/CD et développement backend Node.js/TypeScript. Accompagne les entreprises dans la conception et l\'automatisation de leurs infrastructures cloud.' },
+        { name: 'keywords', content: 'Platform Engineer, AWS, Terraform, Node.js, DevOps, freelance, Paris, infrastructure cloud, CI/CD' },
+        { property: 'og:title', content: 'Eliot Boutherin - Platform Engineer AWS' },
+        { property: 'og:description', content: 'J\'aide les entreprises à concevoir, automatiser et faire évoluer leurs infrastructures AWS avec Terraform, tout en développant des API backend performantes.' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://ebouther.github.io/' },
+        { property: 'og:locale', content: 'fr_FR' },
+        { name: 'twitter:card', content: 'summary' },
+        { name: 'twitter:title', content: 'Eliot Boutherin - Platform Engineer AWS' },
+        { name: 'twitter:description', content: 'J\'aide les entreprises à concevoir, automatiser et faire évoluer leurs infrastructures AWS avec Terraform.' },
+        { name: 'author', content: 'Eliot Boutherin' }
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://ebouther.github.io/' }
       ]
     }
   },
