@@ -1,6 +1,6 @@
 # ebouther.github.io
 
-Portfolio personnel - Eliott Boutherre, DevOps AWS & Développeur Backend.
+Portfolio personnel - Eliot Boutherin, Platform Engineer AWS.
 
 ## Stack
 
