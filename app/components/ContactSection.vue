@@ -31,15 +31,27 @@
             :target="link.external ? '_blank' : undefined"
             :rel="link.external ? 'noopener' : undefined"
             class="contact-card"
-            :initial="{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }"
-            :while-in-view="{ opacity: 1, x: 0 }"
+            :initial="{ opacity: 0, y: 20 }"
+            :while-in-view="{ opacity: 1, y: 0 }"
             :viewport="{ once: true }"
             :transition="{ delay: 0.2 + i * 0.1, duration: 0.4, ease: 'easeOut' }"
-            :while-hover="{ x: 6, transition: { duration: 0.2 } }"
+            :while-hover="{
+              x: 4,
+              borderColor: link.hoverColor,
+              transition: { duration: 0.2 },
+            }"
           >
-            <span class="contact-icon">{{ link.icon }}</span>
-            <span class="contact-label">{{ link.label }}</span>
-            <span class="contact-value">{{ link.value }}</span>
+            <span class="contact-icon" v-html="link.icon" />
+            <div class="contact-info">
+              <span class="contact-label">{{ link.label }}</span>
+              <span class="contact-value">
+                <span class="prompt">$</span>
+                <span class="cmd">{{ link.cmd }}</span>
+              </span>
+            </div>
+            <div class="contact-action">
+              <span class="arrow">→</span>
+            </div>
           </Motion>
         </div>
       </div>
@@ -50,10 +62,38 @@
 <script setup lang="ts">
 const email = 'eliot.boutherin@gmail.com'
 
+const mailIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>`
+const linkedinIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`
+const maltIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`
+
 const contactLinks = [
-  { label: 'Email', icon: '✉️', value: email, href: `mailto:${email}`, external: false },
-  { label: 'LinkedIn', icon: '💼', value: 'in/eliot-boutherin', href: 'https://www.linkedin.com/in/eliot-boutherin/', external: true },
-  { label: 'Malt', icon: '🏆', value: 'eliotboutherin', href: 'https://www.malt.fr/profile/eliotboutherin', external: true },
+  {
+    label: 'Email',
+    icon: mailIcon,
+    cmd: `mail ${email}`,
+    value: email,
+    href: `mailto:${email}`,
+    hoverColor: '#22c55e',
+    external: false,
+  },
+  {
+    label: 'LinkedIn',
+    icon: linkedinIcon,
+    cmd: 'connect /in/eliot-boutherin',
+    value: 'in/eliot-boutherin',
+    href: 'https://www.linkedin.com/in/eliot-boutherin/',
+    hoverColor: '#818cf8',
+    external: true,
+  },
+  {
+    label: 'Malt',
+    icon: maltIcon,
+    cmd: 'hire eliotboutherin',
+    value: 'eliotboutherin',
+    href: 'https://www.malt.fr/profile/eliotboutherin',
+    hoverColor: '#f59e0b',
+    external: true,
+  },
 ]
 </script>
 
@@ -73,29 +113,42 @@ const contactLinks = [
 .contact-links {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .contact-card {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 20px 24px;
+  padding: 16px 20px;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 12px;
   text-decoration: none;
-  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: linear-gradient(135deg, transparent 60%, rgba(99, 102, 241, 0.04));
+}
+
+.contact-card:hover::before {
+  opacity: 1;
 }
 
 .contact-card:hover {
-  border-color: var(--accent);
-  background: var(--bg-card);
-  transform: translateX(4px);
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.06);
 }
 
 .contact-icon {
-  font-size: 1.4rem;
   width: 44px;
   height: 44px;
   display: flex;
@@ -103,21 +156,99 @@ const contactLinks = [
   justify-content: center;
   background: var(--accent-dim);
   border-radius: 12px;
+  flex-shrink: 0;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.contact-icon :deep(svg) {
+  width: 22px;
+  height: 22px;
+  color: var(--accent-hover);
+  transition: color 0.2s;
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.05);
+  background: rgba(99, 102, 241, 0.18);
+}
+
+.contact-card:hover .contact-icon :deep(svg) {
+  color: var(--accent);
+}
+
+.contact-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  min-width: 0;
 }
 
 .contact-label {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  min-width: 72px;
-  text-align: left;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
 }
 
 .contact-value {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-primary);
   font-weight: 500;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prompt {
+  color: #22c55e;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.cmd {
+  color: var(--accent-hover);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  opacity: 0.3;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.contact-card:hover .arrow {
+  opacity: 0.8;
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .contact-card {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .contact-value {
+    font-size: 0.85rem;
+  }
+
+  .cmd {
+    font-size: 0.8rem;
+  }
 }
 </style>
