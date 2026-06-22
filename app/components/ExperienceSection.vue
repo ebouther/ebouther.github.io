@@ -6,8 +6,8 @@
         class="section-title"
         :initial="{ opacity: 0, y: 20 }"
         :while-in-view="{ opacity: 1, y: 0 }"
-        :viewport="{ once: true }"
-        :transition="{ duration: 0.5 }"
+        :in-view-options="{ once: true }"
+        :transition="{ duration: 0.8 }"
       >
         Mon <span>parcours</span>
       </Motion>
@@ -19,8 +19,8 @@
           class="timeline-card"
           :initial="{ opacity: 0, x: -20 }"
           :while-in-view="{ opacity: 1, x: 0 }"
-          :viewport="{ once: true }"
-          :transition="{ delay: i * 0.15, duration: 0.5, ease: 'easeOut' }"
+          :in-view-options="{ once: true }"
+          :transition="{ delay: i * 0.2, duration: 0.7, ease: 'easeOut' }"
         >
           <div class="timeline-dot" />
           <div v-if="i < experiences.length - 1" class="timeline-line" />

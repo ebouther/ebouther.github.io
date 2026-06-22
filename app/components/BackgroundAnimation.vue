@@ -2,34 +2,31 @@
   <div class="bg-canvas" aria-hidden="true">
     <div class="gradient-bg" />
     <div class="mesh-bg" />
-    <div class="noise-overlay" />
-
-    <!-- Network graph -->
-    <svg class="network" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <g class="links">
-        <line v-for="(link, i) in links" :key="'l'+i" :x1="link.x1" :y1="link.y1" :x2="link.x2" :y2="link.y2" class="link" :style="{ animationDelay: link.delay + 's' }" />
-      </g>
-      <g class="nodes">
-        <circle v-for="(node, i) in nodes" :key="'n'+i" :cx="node.x" :cy="node.y" r="3" class="dot" :style="{ animationDelay: node.delay + 's' }" />
-      </g>
-      <!-- Data packets traveling along network -->
-      <g class="packets">
-        <circle
-          v-for="(pkt, i) in packets"
-          :key="'p'+i"
-          :r="pkt.size"
-          class="packet"
-          :style="{
-            '--x1': pkt.x1,
-            '--y1': pkt.y1,
-            '--x2': pkt.x2,
-            '--y2': pkt.y2,
-            '--duration': pkt.duration + 's',
-            '--delay': pkt.delay + 's',
-          }"
-        />
-      </g>
-    </svg>
+    <!-- Network graph (div-based for Firefox compatibility) -->
+    <div class="network">
+      <div
+        v-for="(link, i) in links"
+        :key="'l'+i"
+        class="link"
+        :style="{
+          left: (link.x1 / 800 * 100) + '%',
+          top: (link.y1 / 600 * 100) + '%',
+          width: link.len + 'px',
+          transform: 'rotate(' + link.angle + 'rad)',
+          animationDelay: link.delay + 's',
+        }"
+      />
+      <div
+        v-for="(node, i) in nodes"
+        :key="'n'+i"
+        class="dot"
+        :style="{
+          left: (node.x / 800 * 100) + '%',
+          top: (node.y / 600 * 100) + '%',
+          animationDelay: node.delay + 's',
+        }"
+      />
+    </div>
 
     <!-- Floating infrastructure icons -->
     <div class="float-icons">
@@ -40,8 +37,6 @@
         :style="{
           left: icon.x + '%',
           top: icon.y + '%',
-          animationDuration: icon.duration + 's',
-          animationDelay: icon.delay + 's',
           opacity: icon.opacity,
           fontSize: icon.size + 'px',
         }"
@@ -98,7 +93,7 @@ const nodes = [
   { x: 350, y: 300, delay: 1.4 },
 ]
 
-const links = [
+const rawLinks = [
   { x1: 100, y1: 80, x2: 300, y2: 50, delay: 0 },
   { x1: 300, y1: 50, x2: 500, y2: 100, delay: 0.3 },
   { x1: 500, y1: 100, x2: 700, y2: 60, delay: 0.6 },
@@ -124,17 +119,10 @@ const links = [
   { x1: 350, y1: 300, x2: 550, y2: 380, delay: 1.3 },
 ]
 
-const packets = computed(() =>
-  links.map((link, i) => ({
-    x1: link.x1,
-    y1: link.y1,
-    x2: link.x2,
-    y2: link.y2,
-    size: 2 + Math.random() * 2,
-    duration: 3 + Math.random() * 4,
-    delay: link.delay + Math.random() * 2,
-  }))
-)
+const links = rawLinks.map(l => {
+  const dx = l.x2 - l.x1, dy = l.y2 - l.y1;
+  return { ...l, len: Math.sqrt(dx*dx + dy*dy), angle: Math.atan2(dy, dx) };
+})
 
 const iconSvgs = [
   // Container
@@ -155,23 +143,21 @@ const iconSvgs = [
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>`,
 ]
 
-const floatIcons = Array.from({ length: 16 }, (_, i) => ({
+const floatIcons = Array.from({ length: 4 }, (_, i) => ({
   x: 5 + Math.random() * 90,
   y: 5 + Math.random() * 90,
-  duration: 20 + Math.random() * 30,
-  delay: Math.random() * -30,
-  opacity: 0.03 + Math.random() * 0.07,
-  size: 18 + Math.random() * 24,
+  opacity: 0.05 + Math.random() * 0.06,
+  size: 20 + Math.random() * 24,
   svg: iconSvgs[i % iconSvgs.length],
 }))
 
-const particleData = Array.from({ length: 40 }, (_, i) => ({
+const particleData = Array.from({ length: 15 }, (_, i) => ({
   x: Math.random() * 100,
   y: Math.random() * 100,
   size: 1 + Math.random() * 2.5,
   duration: 4 + Math.random() * 8,
   delay: Math.random() * -10,
-  opacity: 0.1 + Math.random() * 0.4,
+  opacity: 0.1 + Math.random() * 0.3,
 }))
 </script>
 
@@ -182,23 +168,14 @@ const particleData = Array.from({ length: 40 }, (_, i) => ({
   overflow: clip;
   pointer-events: none;
   z-index: 0;
+  contain: paint;
 }
 
 /* Gradient background */
 .gradient-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(30, 27, 75, 0.6) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(15, 23, 42, 0.8) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(30, 41, 59, 0.5) 0%, transparent 50%),
-    linear-gradient(180deg, #0b0d1a 0%, #0f1225 30%, #12142d 60%, #0a0c1a 100%);
-  animation: gradient-shift 12s ease-in-out infinite alternate;
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 0%; opacity: 1; }
-  100% { background-position: 5% 3%; opacity: 0.85; }
+  background: linear-gradient(180deg, #0b0d1a 0%, #0f1225 20%, #12142d 40%, #0a0c1a 60%, #0b0d1a 100%);
 }
 
 /* Mesh grid */
@@ -209,69 +186,42 @@ const particleData = Array.from({ length: 40 }, (_, i) => ({
     linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
   background-size: 64px 64px;
-  animation: mesh-drift 20s linear infinite;
 }
 
-@keyframes mesh-drift {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(64px, 64px); }
-}
-
-/* Noise */
-.noise-overlay {
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
-
-/* Network SVG */
+/* Network graph (div-based) */
 .network {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.35;
+  opacity: 0.5;
 }
 
 .link {
-  stroke: rgba(99, 102, 241, 0.15);
-  stroke-width: 1;
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(129, 140, 248, 0.6), rgba(129, 140, 248, 0.05));
+  transform-origin: 0 0;
   animation: link-pulse 4s ease-in-out infinite;
 }
 
 @keyframes link-pulse {
-  0%, 100% { stroke-opacity: 0.1; }
-  50% { stroke-opacity: 0.35; }
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.6; }
 }
 
 .dot {
-  fill: var(--accent-hover);
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: rgba(129, 140, 248, 0.8);
   animation: dot-glow 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 4px rgba(99, 102, 241, 0.3));
 }
 
 @keyframes dot-glow {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 0.75; }
-}
-
-/* Data packets traveling along network */
-.packet {
-  fill: rgba(129, 140, 248, 0.6);
-  filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.5));
-  offset-path: path('M var(--x1) var(--y1) L var(--x2) var(--y2)');
-  animation: packet-travel var(--duration) linear infinite;
-  animation-delay: var(--delay);
-}
-
-@keyframes packet-travel {
-  0% { offset-distance: 0%; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.7; }
 }
 
 /* Floating infrastructure icons */
@@ -283,21 +233,12 @@ const particleData = Array.from({ length: 40 }, (_, i) => ({
 .float-icon {
   position: absolute;
   color: var(--accent);
-  animation: float-icon linear infinite;
   transform: translate(-50%, -50%);
 }
 
 .float-icon :deep(svg) {
   width: 100%;
   height: 100%;
-}
-
-@keyframes float-icon {
-  0% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
-  25% { transform: translate(-50%, -50%) translateY(-20px) rotate(5deg); }
-  50% { transform: translate(-50%, -50%) translateY(-10px) rotate(-3deg); }
-  75% { transform: translate(-50%, -50%) translateY(-25px) rotate(4deg); }
-  100% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
 }
 
 /* Floating particles */
@@ -332,74 +273,67 @@ const particleData = Array.from({ length: 40 }, (_, i) => ({
     rgba(0, 0, 0, 0.08) 4px
   );
   pointer-events: none;
-  animation: scanline-move 8s linear infinite;
-}
-
-@keyframes scanline-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 4px; }
+  background-size: 100% 4px;
 }
 
 /* Glowing orbs */
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
-  animation: glow-float 8s ease-in-out infinite alternate;
+  animation: glow-float 10s ease-in-out infinite alternate;
 }
 
 .g1 {
-  width: 400px;
-  height: 400px;
-  top: -5%;
-  left: -5%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent);
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0.12) 40%, transparent 70%);
 }
 
 .g2 {
-  width: 350px;
-  height: 350px;
-  top: 40%;
-  right: -5%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.08), transparent);
+  width: 450px;
+  height: 450px;
+  top: 35%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0.1) 40%, transparent 70%);
   animation-delay: -2s;
 }
 
 .g3 {
-  width: 300px;
-  height: 300px;
-  bottom: 0;
-  left: 30%;
-  background: radial-gradient(circle, rgba(34, 197, 94, 0.06), transparent);
+  width: 400px;
+  height: 400px;
+  bottom: -5%;
+  left: 25%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.08) 40%, transparent 70%);
   animation-delay: -4s;
 }
 
 .g4 {
-  width: 250px;
-  height: 250px;
-  top: 25%;
-  left: 40%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.06), transparent);
+  width: 350px;
+  height: 350px;
+  top: 20%;
+  left: 35%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%);
   animation-delay: -6s;
 }
 
 .g5 {
-  width: 280px;
-  height: 280px;
-  bottom: 20%;
-  right: 15%;
-  background: radial-gradient(circle, rgba(249, 115, 22, 0.04), transparent);
+  width: 380px;
+  height: 380px;
+  bottom: 15%;
+  right: 10%;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.2) 0%, rgba(249, 115, 22, 0.06) 40%, transparent 70%);
   animation-delay: -3s;
 }
 
 @keyframes glow-float {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(30px, -20px) scale(1.1); }
+  0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  100% { transform: translate(30px, -20px) scale(1.1); opacity: 1; }
 }
 
 @media (max-width: 768px) {
-  .network { opacity: 0.2; }
-  .glow { filter: blur(40px); }
+  .network { opacity: 0.3; }
   .g3, .g4, .g5 { display: none; }
   .float-icon { display: none; }
   .particle { display: none; }

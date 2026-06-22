@@ -6,8 +6,8 @@
         class="section-title"
         :initial="{ opacity: 0, y: 20 }"
         :while-in-view="{ opacity: 1, y: 0 }"
-        :viewport="{ once: true }"
-        :transition="{ duration: 0.5 }"
+        :in-view-options="{ once: true }"
+        :transition="{ duration: 0.8 }"
       >
         <span class="section-hash">#</span> infrastructure <span class="section-dot">.</span>stack
       </Motion>
@@ -18,8 +18,9 @@
           class="arch-layer"
           :initial="{ opacity: 0, y: 20 }"
           :while-in-view="{ opacity: 1, y: 0 }"
+          :in-view-options="{ once: true }"
           :viewport="{ once: true }"
-          :transition="{ duration: 0.4 }"
+          :transition="{ duration: 0.6 }"
         >
           <SkillBlock :domain="domains[0]" />
           <div class="connector-v" />
@@ -30,8 +31,8 @@
           class="arch-layer arch-layer-row"
           :initial="{ opacity: 0, y: 20 }"
           :while-in-view="{ opacity: 1, y: 0 }"
-          :viewport="{ once: true }"
-          :transition="{ duration: 0.4, delay: 0.1 }"
+          :in-view-options="{ once: true }"
+          :transition="{ duration: 0.6, delay: 0.15 }"
         >
           <div class="connector-bar top" />
           <SkillBlock v-for="d in domains.slice(1, 4)" :key="d.title" :domain="d" />
@@ -43,8 +44,9 @@
           class="arch-layer"
           :initial="{ opacity: 0, y: 20 }"
           :while-in-view="{ opacity: 1, y: 0 }"
+          :in-view-options="{ once: true }"
           :viewport="{ once: true }"
-          :transition="{ duration: 0.4, delay: 0.2 }"
+          :transition="{ duration: 0.6, delay: 0.3 }"
         >
           <div class="connector-v" />
           <SkillBlock :domain="domains[4]" wide />
@@ -56,8 +58,8 @@
           class="arch-layer"
           :initial="{ opacity: 0, y: 20 }"
           :while-in-view="{ opacity: 1, y: 0 }"
-          :viewport="{ once: true }"
-          :transition="{ duration: 0.4, delay: 0.3 }"
+          :in-view-options="{ once: true }"
+          :transition="{ duration: 0.6, delay: 0.45 }"
         >
           <SkillBlock :domain="domains[5]" wide />
         </Motion>

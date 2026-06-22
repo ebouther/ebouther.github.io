@@ -6,8 +6,8 @@
         class="section-title"
         :initial="{ opacity: 0, y: 20 }"
         :while-in-view="{ opacity: 1, y: 0 }"
-        :viewport="{ once: true }"
-        :transition="{ duration: 0.5 }"
+        :in-view-options="{ once: true }"
+        :transition="{ duration: 0.8 }"
       >
         Me <span>contacter</span>
       </Motion>
@@ -17,8 +17,8 @@
           class="contact-text"
           :initial="{ opacity: 0, y: 15 }"
           :while-in-view="{ opacity: 1, y: 0 }"
-          :viewport="{ once: true }"
-          :transition="{ duration: 0.5 }"
+          :in-view-options="{ once: true }"
+          :transition="{ duration: 0.8 }"
         >
           Vous avez un projet cloud ou backend ? Discutons-en.
         </Motion>
@@ -33,8 +33,8 @@
             class="contact-card"
             :initial="{ opacity: 0, y: 20 }"
             :while-in-view="{ opacity: 1, y: 0 }"
-            :viewport="{ once: true }"
-            :transition="{ delay: 0.2 + i * 0.1, duration: 0.4, ease: 'easeOut' }"
+            :in-view-options="{ once: true }"
+            :transition="{ delay: 0.3 + i * 0.15, duration: 0.6, ease: 'easeOut' }"
             :while-hover="{
               x: 4,
               borderColor: link.hoverColor,

@@ -1,69 +1,33 @@
 <template>
   <section class="hero">
     <div class="container hero-inner">
-      <div class="hero-content">
-        <Motion
-          as="p"
-          class="hero-badge"
-          :initial="{ opacity: 0, y: -12 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ delay: 0.2, duration: 0.6, ease: 'easeOut' }"
-        >
+        <div class="hero-content">
+          <Motion as="p" class="hero-badge" :initial="{ opacity: 0, y: -12 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.05, duration: 0.3, ease: 'easeOut' }">
           <span class="status-dot" />
           Disponible en freelance
         </Motion>
 
-        <Motion
-          as="h1"
-          class="hero-title"
-          :initial="{ opacity: 0, y: 30 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ delay: 0.4, type: 'spring', stiffness: 100, damping: 15 }"
-        >
+        <Motion as="h1" class="hero-title" :initial="{ opacity: 0, y: 30 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.15, duration: 0.45, ease: 'easeOut' }">
           Eliot <span class="gradient-text">Boutherin</span>
         </Motion>
 
-        <Motion
-          as="p"
-          class="hero-subtitle"
-          :initial="{ opacity: 0 }"
-          :animate="{ opacity: 1 }"
-          :transition="{ delay: 0.6, duration: 0.5 }"
-        >
+        <Motion as="p" class="hero-subtitle" :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ delay: 0.2, duration: 0.35 }">
           <span class="prompt-sign">$</span>
           <span class="typing-text">{{ typedText }}</span>
           <span class="typing-cursor" :class="{ blink: cursorBlink }">▌</span>
         </Motion>
 
-        <Motion
-          as="p"
-          class="hero-description"
-          :initial="{ opacity: 0, y: 20 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ delay: 0.8, duration: 0.6, ease: 'easeOut' }"
-        >
+        <Motion as="p" class="hero-description" :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.1, duration: 0.35, ease: 'easeOut' }">
           J'aide les entreprises à concevoir, automatiser et faire évoluer leurs infrastructures AWS avec Terraform, tout en développant des API backend performantes et maintenables.
         </Motion>
 
-        <Motion
-          as="div"
-          class="hero-actions"
-          :initial="{ opacity: 0, y: 20 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ delay: 1, duration: 0.5, ease: 'easeOut' }"
-        >
+        <Motion as="div" class="hero-actions" :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.3, duration: 0.35, ease: 'easeOut' }">
           <a href="#contact" class="btn btn-primary">Me contacter</a>
           <a href="#experience" class="btn btn-secondary">Voir mon parcours</a>
         </Motion>
 
         <!-- Pseudo-terminal deployment log -->
-        <Motion
-          as="div"
-          class="deploy-log"
-          :initial="{ opacity: 0 }"
-          :animate="{ opacity: 1 }"
-          :transition="{ delay: 1.4, duration: 0.6 }"
-        >
+        <Motion as="div" class="deploy-log" :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ delay: 0.6, duration: 0.5 }">
           <div class="deploy-header">
             <span class="deploy-dot red" />
             <span class="deploy-dot yellow" />

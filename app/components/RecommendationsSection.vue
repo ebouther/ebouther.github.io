@@ -6,8 +6,8 @@
         class="section-title"
         :initial="{ opacity: 0, y: 20 }"
         :while-in-view="{ opacity: 1, y: 0 }"
-        :viewport="{ once: true }"
-        :transition="{ duration: 0.5 }"
+        :in-view-options="{ once: true }"
+        :transition="{ duration: 0.8 }"
       >
         Recommandations
       </Motion>
@@ -19,8 +19,8 @@
           class="rec-card"
           :initial="{ opacity: 0, y: 30, scale: 0.97 }"
           :while-in-view="{ opacity: 1, y: 0, scale: 1 }"
-          :viewport="{ once: true }"
-          :transition="{ delay: i * 0.12, duration: 0.5, ease: 'easeOut' }"
+          :in-view-options="{ once: true }"
+          :transition="{ delay: i * 0.15, duration: 0.7, ease: 'easeOut' }"
           :while-hover="{ y: -4, transition: { duration: 0.2 } }"
         >
           <div class="rec-header">

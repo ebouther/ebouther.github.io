@@ -93,13 +93,11 @@ if (import.meta.client) {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  opacity: 0.7;
 }
 
 .metric-suffix {
-  color: var(--text-secondary);
+  color: #7878a0;
   font-size: 0.7rem;
-  opacity: 0.5;
 }
 
 .metric-divider {
