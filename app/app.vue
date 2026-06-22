@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper">
-    <BackgroundAnimation />
+    <BackgroundAnimation v-if="showBg" />
     <div class="app-content">
       <AppHeader />
       <NuxtPage />
@@ -10,6 +10,12 @@
 </template>
 
 <script setup lang="ts">
+const showBg = ref(false)
+
+onMounted(() => {
+  requestAnimationFrame(() => { showBg.value = true })
+})
+
 useHead({
   script: [
     {

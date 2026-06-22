@@ -91,57 +91,52 @@ const icons = {
 
 const domains: Domain[] = [
   {
-    title: 'Cloud', subtitle: 'AWS', accent: '#6366f1', icon: icons.cloud,
+    title: 'Cloud & Backend', subtitle: 'AWS Serverless Systems', accent: '#6366f1', icon: icons.cloud,
     groups: [
-      { label: 'Compute', items: ['EC2', 'ECS', 'EKS', 'Lambda', 'Batch'] },
-      { label: 'Networking', items: ['VPC', 'Route53', 'CloudFront', 'API Gateway', 'ELB'] },
-      { label: 'Security', items: ['IAM', 'Cognito', 'KMS', 'Secrets Manager', 'WAF'] },
-      { label: 'Storage & DB', items: ['S3', 'RDS', 'ElastiCache', 'DynamoDB', 'EFS'] },
-      { label: 'Integration', items: ['AppSync', 'SQS', 'SNS', 'EventBridge', 'Step Functions'] },
+      { label: 'Compute', items: ['Lambda', 'ECS'] },
+      { label: 'API', items: ['API Gateway', 'AppSync'] },
+      { label: 'Data', items: ['DynamoDB', 'S3', 'RDS', 'Redis'] },
+      { label: 'Eventing', items: ['SQS', 'SNS', 'EventBridge', 'Step Functions'] },
     ],
   },
   {
-    title: 'Infrastructure', subtitle: 'as Code', accent: '#22c55e', icon: icons.infra,
+    title: 'Infrastructure', subtitle: 'IaC & Automation', accent: '#22c55e', icon: icons.infra,
     groups: [
-      { label: 'Provisioning', items: ['Terraform', 'Terragrunt', 'OpenTofu'] },
-      { label: 'Cloud SDK', items: ['AWS CDK', 'CloudFormation', 'Pulumi'] },
-      { label: 'Configuration', items: ['Ansible', 'Packer'] },
-      { label: 'Orchestration', items: ['Docker', 'Kubernetes', 'Helm', 'Docker Compose'] },
+      { label: 'Provisioning', items: ['Terraform', 'Terragrunt'] },
+      { label: 'Configuration', items: ['Ansible'] },
+      { label: 'Containers', items: ['Docker'] },
+      { label: 'Orchestration', items: ['ECS / Fargate (AWS)', 'Kubernetes (basic knowledge)'] },
     ],
   },
   {
-    title: 'CI / CD', subtitle: 'Pipelines', accent: '#f59e0b', icon: icons.cicd,
+    title: 'CI / CD', subtitle: 'Automation', accent: '#f59e0b', icon: icons.cicd,
     groups: [
-      { label: 'Platforms', items: ['GitHub Actions', 'GitLab CI', 'Jenkins', 'Buildkite'] },
-      { label: 'Containers', items: ['Docker', 'ECR', 'Docker Hub', 'Kaniko'] },
-      { label: 'Runners', items: ['Self-hosted', 'ECS Runners', 'K8s Runners'] },
+      { label: 'Pipelines', items: ['GitHub Actions'] },
+      { label: 'Runners', items: ['Self-hosted', 'ECS Runners'] },
     ],
   },
   {
-    title: 'Observability', subtitle: 'Monitoring', accent: '#ef4444', icon: icons.observability,
+    title: 'Observability', subtitle: 'Monitoring & Debugging', accent: '#ef4444', icon: icons.observability,
     groups: [
-      { label: 'Metrics', items: ['Prometheus', 'Grafana', 'CloudWatch'] },
-      { label: 'Logging', items: ['ELK Stack', 'Loki', 'CloudWatch Logs'] },
-      { label: 'APM & Errors', items: ['Sentry', 'Datadog', 'OpenTelemetry'] },
-      { label: 'Tracing', items: ['X-Ray', 'Jaeger'] },
+      { label: 'Metrics', items: ['CloudWatch', 'Prometheus', 'Grafana'] },
+      { label: 'Logging', items: ['CloudWatch Logs'] },
+      { label: 'Tracing', items: ['OpenTelemetry', 'AWS X-Ray'] },
+      { label: 'Errors', items: ['Sentry'] },
     ],
   },
   {
-    title: 'Backend', subtitle: 'API & Data', accent: '#06b6d4', icon: icons.backend,
+    title: 'Backend', subtitle: 'API & Application Layer', accent: '#06b6d4', icon: icons.backend,
     groups: [
-      { label: 'Languages', items: ['Node.js', 'TypeScript', 'Python', 'Go'] },
-      { label: 'Frameworks', items: ['Express', 'NestJS', 'Fastify', 'FastAPI'] },
-      { label: 'APIs', items: ['GraphQL', 'REST', 'tRPC', 'WebSockets'] },
-      { label: 'Databases', items: ['PostgreSQL', 'MongoDB', 'Redis', 'DynamoDB'] },
-      { label: 'Messaging', items: ['SQS', 'RabbitMQ', 'Kafka'] },
+      { label: 'Languages', items: ['Node.js', 'TypeScript', 'Python'] },
+      { label: 'APIs', items: ['REST', 'GraphQL'] },
+      { label: 'Architecture', items: ['Clean Architecture', 'CQRS'] },
     ],
   },
   {
-    title: 'Architecture', subtitle: 'Design', accent: '#a855f7', icon: icons.arch,
+    title: 'Architecture', subtitle: 'Design & Principles', accent: '#a855f7', icon: icons.arch,
     groups: [
-      { label: 'Patterns', items: ['Serverless', 'Microservices', 'Event-Driven', 'CQRS'] },
-      { label: 'Methodologies', items: ['Clean Architecture', 'Domain-Driven Design', '12-Factor App'] },
-      { label: 'Cloud Native', items: ['Well-Architected', 'FinOps', 'Chaos Engineering'] },
+      { label: 'Core patterns', items: ['Serverless', 'Event-Driven', 'Microservices'] },
+      { label: 'Cloud principles', items: ['12-Factor App', 'AWS Well-Architected Framework'] },
     ],
   },
 ]

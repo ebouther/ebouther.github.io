@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: { lang: 'fr' },
       title: 'Eliot Boutherin - Platform Engineer AWS & Développeur Backend',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',

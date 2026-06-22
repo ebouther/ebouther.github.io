@@ -107,7 +107,7 @@ interface LogEntry {
 
 const logs: LogEntry[] = [
   { time: '2024-06-19 09:00:01', level: 'INFO', msg: 'Initializing infrastructure deployment...', type: 'info' },
-  { time: '2024-06-19 09:00:02', level: 'OK', msg: 'Terraform backend configured (s3://infra-state)', type: 'ok' },
+  { time: '2024-06-19 09:00:02', level: 'OK', msg: 'Terraform backend configured', type: 'ok' },
   { time: '2024-06-19 09:00:03', level: 'OK', msg: 'Provider aws.region = eu-west-3', type: 'ok' },
   { time: '2024-06-19 09:00:05', level: 'INFO', msg: 'Planning changes: +12 ~3 -0', type: 'info' },
   { time: '2024-06-19 09:00:06', level: 'OK', msg: 'VPC: complete', type: 'ok' },
