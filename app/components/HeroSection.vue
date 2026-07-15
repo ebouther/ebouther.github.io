@@ -4,7 +4,7 @@
         <div class="hero-content">
           <Motion as="p" class="hero-badge" :initial="{ opacity: 0, y: -12 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.05, duration: 0.3, ease: 'easeOut' }">
           <span class="status-dot" />
-          Disponible en freelance
+          {{ t('hero.badge') }}
         </Motion>
 
         <Motion as="h1" class="hero-title" :initial="{ opacity: 0, y: 30 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.15, duration: 0.45, ease: 'easeOut' }">
@@ -18,15 +18,14 @@
         </Motion>
 
         <Motion as="p" class="hero-description" :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.1, duration: 0.35, ease: 'easeOut' }">
-          J'aide les entreprises à concevoir, automatiser et faire évoluer leurs infrastructures AWS avec Terraform, tout en développant des API backend performantes et maintenables.
+          {{ t('hero.description') }}
         </Motion>
 
         <Motion as="div" class="hero-actions" :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{ delay: 0.3, duration: 0.35, ease: 'easeOut' }">
-          <a href="#contact" class="btn btn-primary">Me contacter</a>
-          <a href="#experience" class="btn btn-secondary">Voir mon parcours</a>
+          <a href="#contact" class="btn btn-primary">{{ t('hero.contactBtn') }}</a>
+          <a href="#experience" class="btn btn-secondary">{{ t('hero.experienceBtn') }}</a>
         </Motion>
 
-        <!-- Pseudo-terminal deployment log -->
         <Motion as="div" class="deploy-log" :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ delay: 0.6, duration: 0.5 }">
           <div class="deploy-header">
             <span class="deploy-dot red" />
@@ -54,13 +53,17 @@
 </template>
 
 <script setup lang="ts">
-const { display: typedText, cursor: cursorBlink } = useTypewriter([
-  'Platform Engineer AWS',
-  'Terraform & Infrastructure as Code',
-  'CI/CD & DevOps',
-  'Node.js / TypeScript',
-  'Cloud Architecture',
-], { speed: 50, deleteSpeed: 25, pause: 2500 })
+const { t, tv, locale } = useI18n()
+
+const { display: typedText, cursor: cursorBlink, restart } = useTypewriter(
+  computed(() => {
+    const raw = tv('hero.titles')
+    return Array.isArray(raw) ? raw as string[] : ['Platform Engineer AWS']
+  }),
+  { speed: 50, deleteSpeed: 25, pause: 2500 }
+)
+
+watch(locale, () => { restart() })
 
 interface LogEntry {
   time: string
@@ -69,19 +72,25 @@ interface LogEntry {
   type: string
 }
 
+function makeTime(offsetSec: number) {
+  const d = new Date()
+  d.setSeconds(d.getSeconds() + offsetSec)
+  return d.toISOString().replace('T', ' ').slice(0, 19)
+}
+
 const logs: LogEntry[] = [
-  { time: '2024-06-19 09:00:01', level: 'INFO', msg: 'Initializing infrastructure deployment...', type: 'info' },
-  { time: '2024-06-19 09:00:02', level: 'OK', msg: 'Terraform backend configured', type: 'ok' },
-  { time: '2024-06-19 09:00:03', level: 'OK', msg: 'Provider aws.region = eu-west-3', type: 'ok' },
-  { time: '2024-06-19 09:00:05', level: 'INFO', msg: 'Planning changes: +12 ~3 -0', type: 'info' },
-  { time: '2024-06-19 09:00:06', level: 'OK', msg: 'VPC: complete', type: 'ok' },
-  { time: '2024-06-19 09:00:07', level: 'OK', msg: 'ECS cluster: online', type: 'ok' },
-  { time: '2024-06-19 09:00:08', level: 'OK', msg: 'RDS instance: accepting connections', type: 'ok' },
-  { time: '2024-06-19 09:00:09', level: 'OK', msg: 'ElastiCache: online', type: 'ok' },
-  { time: '2024-06-19 09:00:10', level: 'INFO', msg: 'Deploying application containers...', type: 'info' },
-  { time: '2024-06-19 09:00:12', level: 'OK', msg: 'Deployment complete (12 resources)', type: 'ok' },
-  { time: '2024-06-19 09:00:13', level: 'OK', msg: 'Health checks passed ✓', type: 'ok' },
-  { time: '2024-06-19 09:00:14', level: 'OK', msg: 'Infrastructure is healthy', type: 'ok' },
+  { time: makeTime(0), level: 'INFO', msg: 'Initializing infrastructure deployment...', type: 'info' },
+  { time: makeTime(1), level: 'OK', msg: 'Terraform backend configured', type: 'ok' },
+  { time: makeTime(2), level: 'OK', msg: 'Provider aws.region = eu-west-3', type: 'ok' },
+  { time: makeTime(4), level: 'INFO', msg: 'Planning changes: +12 ~3 -0', type: 'info' },
+  { time: makeTime(5), level: 'OK', msg: 'VPC: complete', type: 'ok' },
+  { time: makeTime(6), level: 'OK', msg: 'ECS cluster: online', type: 'ok' },
+  { time: makeTime(7), level: 'OK', msg: 'RDS instance: accepting connections', type: 'ok' },
+  { time: makeTime(8), level: 'OK', msg: 'ElastiCache: online', type: 'ok' },
+  { time: makeTime(9), level: 'INFO', msg: 'Deploying application containers...', type: 'info' },
+  { time: makeTime(11), level: 'OK', msg: 'Deployment complete (12 resources)', type: 'ok' },
+  { time: makeTime(12), level: 'OK', msg: 'Health checks passed ✓', type: 'ok' },
+  { time: makeTime(13), level: 'OK', msg: 'Infrastructure is healthy', type: 'ok' },
 ]
 
 const visibleLogs = ref<LogEntry[]>([])
@@ -132,7 +141,6 @@ onMounted(() => {
   max-width: 720px;
 }
 
-/* Badge */
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -160,7 +168,6 @@ onMounted(() => {
   50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
 }
 
-/* Title */
 .hero-title {
   font-size: 4rem;
   font-weight: 800;
@@ -169,7 +176,6 @@ onMounted(() => {
   margin-bottom: 16px;
 }
 
-/* Subtitle with typewriter */
 .hero-subtitle {
   font-size: 1.5rem;
   font-weight: 500;
@@ -202,7 +208,6 @@ onMounted(() => {
   50% { opacity: 0; }
 }
 
-/* Description */
 .hero-description {
   font-size: 1.1rem;
   color: var(--text-secondary);
@@ -211,7 +216,6 @@ onMounted(() => {
   line-height: 1.7;
 }
 
-/* Buttons */
 .hero-actions {
   display: flex;
   gap: 16px;
@@ -252,7 +256,6 @@ onMounted(() => {
   transform: translateY(-1px);
 }
 
-/* Pseudo-terminal deployment log */
 .deploy-log {
   background: rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(99, 102, 241, 0.2);

@@ -10,10 +10,13 @@
 </template>
 
 <script setup lang="ts">
+const { initLocale } = useI18n()
+
 const showBg = ref(false)
 
 onMounted(() => {
   requestAnimationFrame(() => { showBg.value = true })
+  initLocale()
 })
 
 useHead({

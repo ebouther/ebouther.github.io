@@ -9,7 +9,7 @@
         :in-view-options="{ once: true }"
         :transition="{ duration: 0.8 }"
       >
-        Recommandations
+        {{ t('recommendations.title') }}
       </Motion>
       <div class="recommendations-grid">
         <Motion
@@ -40,37 +40,21 @@
 </template>
 
 <script setup lang="ts">
-const recommendations = [
-  {
-    initials: 'FC',
-    name: 'Felix C.',
-    role: 'Dev Fullstack',
-    date: '18 juin 2020',
-    text: 'Développeur Node.js solide. Capable de debugger des problèmes complexes — la formation 42 se sent. Sérieux et professionnel dans sa pratique du remote — toujours disponible, notre collaboration a été efficace.',
-    highlight: 'Eliot a, à lui seul, mis en place le nouvel environnement de développement local pour l\'ensemble de l\'équipe (frontend et backend) durant une période cruciale de notre projet.'
-  },
-  {
-    initials: 'OB',
-    name: 'Olivier B.',
-    role: 'Développeur Backend, DevOps',
-    date: '12 mai 2020',
-    text: 'Ayant collaboré avec Eliot sur le projet TRIBRating, je peux mesurer son autonomie et sa capacité à répondre efficacement aux besoins qui se sont présentés. Ses contributions ont été très structurantes sur ce projet. Il se repère facilement dans les écosystèmes des logiciels libres, c\'est un grand atout !'
-  },
-  {
-    initials: 'DT',
-    name: 'Damien T.',
-    role: 'Dev Frontend',
-    date: '11 mai 2020',
-    text: 'Travailler avec Eliot a été très agréable. Très motivé, il était toujours prêt à trouver des solutions dans n\'importe quelle situation. Fiable et flexible, je recommande Eliot, et re-travaillerai avec lui avec grand plaisir.'
-  },
-  {
-    initials: 'JB',
-    name: 'Jean C.',
-    role: 'Dev FrontEnd',
-    date: '11 mai 2020',
-    text: 'J\'ai bossé pas mal de temps avec Eliot et c\'est qqun de très pro et appliqué. Il est à l\'écoute des besoins et arrive toujours à résoudre une situation même si elle sort un peu de son périmètre d\'activité. Je le recommande vivement.'
-  }
-]
+interface Recommendation {
+  initials: string
+  name: string
+  role: string
+  date: string
+  text: string
+  highlight?: string
+}
+
+const { t, tv, locale } = useI18n()
+
+const recommendations = computed<Recommendation[]>(() => {
+  const raw = tv('recommendations.items')
+  return Array.isArray(raw) ? (raw as unknown as Recommendation[]) : []
+})
 </script>
 
 <style scoped>

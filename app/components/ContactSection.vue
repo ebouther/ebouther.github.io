@@ -9,7 +9,7 @@
         :in-view-options="{ once: true }"
         :transition="{ duration: 0.8 }"
       >
-        Me <span>contacter</span>
+        {{ t('contact.title') }}<span>{{ t('contact.titleHighlight') }}</span>
       </Motion>
       <div class="contact-content">
         <Motion
@@ -20,7 +20,7 @@
           :in-view-options="{ once: true }"
           :transition="{ duration: 0.8 }"
         >
-          Vous avez un projet cloud ou backend ? Discutons-en.
+          {{ t('contact.subtitle') }}
         </Motion>
         <div class="contact-links">
           <Motion
@@ -43,7 +43,7 @@
           >
             <span class="contact-icon" v-html="link.icon" />
             <div class="contact-info">
-              <span class="contact-label">{{ link.label }}</span>
+              <span class="contact-label">{{ link.labelKey }}</span>
               <span class="contact-value">
                 <span class="prompt">$</span>
                 <span class="cmd">{{ link.cmd }}</span>
@@ -60,41 +60,40 @@
 </template>
 
 <script setup lang="ts">
+const { t, locale } = useI18n()
+
 const email = 'eliot.boutherin@gmail.com'
 
 const mailIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>`
 const linkedinIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`
 const maltIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`
 
-const contactLinks = [
+const contactLinks = computed(() => [
   {
-    label: 'Email',
+    labelKey: t('contact.email'),
     icon: mailIcon,
     cmd: `mail ${email}`,
-    value: email,
     href: `mailto:${email}`,
     hoverColor: '#22c55e',
     external: false,
   },
   {
-    label: 'LinkedIn',
+    labelKey: t('contact.linkedin'),
     icon: linkedinIcon,
     cmd: 'connect /in/eliot-boutherin',
-    value: 'in/eliot-boutherin',
     href: 'https://www.linkedin.com/in/eliot-boutherin/',
     hoverColor: '#818cf8',
     external: true,
   },
   {
-    label: 'Malt',
+    labelKey: t('contact.malt'),
     icon: maltIcon,
     cmd: 'hire eliotboutherin',
-    value: 'eliotboutherin',
     href: 'https://www.malt.fr/profile/eliotboutherin',
     hoverColor: '#f59e0b',
     external: true,
   },
-]
+])
 </script>
 
 <style scoped>

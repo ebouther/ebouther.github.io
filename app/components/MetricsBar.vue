@@ -9,13 +9,15 @@
       <div class="metric-divider" />
       <div class="metric status-group">
         <span class="status-track">●</span>
-        <span class="metric-label">All systems operational</span>
+        <span class="metric-label">{{ t('metrics.allOperational') }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
 interface Metric {
   label: string
   value: string

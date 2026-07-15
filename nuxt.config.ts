@@ -27,7 +27,8 @@ export default defineNuxtConfig({
         { name: 'google-site-verification', content: 'eKKVOix-9e7mlubFa8RyXHe3v3MPgWvSjqEir9_8tYo' }
       ],
       link: [
-        { rel: 'canonical', href: 'https://ebouther.github.io/' }
+        { rel: 'canonical', href: 'https://ebouther.github.io/' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
       ]
     }
   },

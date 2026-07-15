@@ -4,20 +4,28 @@
     :class="{ scrolled: isScrolled }"
   >
     <div class="container header-inner">
-      <a href="#" class="logo">EB</a>
+      <NuxtLink to="/" class="logo">EB</NuxtLink>
       <nav class="nav">
-        <a v-for="link in links" :key="link.href" :href="link.href" class="nav-link">{{ link.label }}</a>
+        <NuxtLink v-for="link in links" :key="link.href" :to="link.href" class="nav-link">{{ t(link.key) }}</NuxtLink>
+        <NuxtLink to="/case-studies" class="nav-link">{{ t('header.caseStudies') }}</NuxtLink>
       </nav>
+      <button class="lang-toggle" @click="toggleLocale" :title="isFr ? 'Switch to English' : 'Passer en français'">
+        <span :class="{ active: isFr }">FR</span>
+        <span class="lang-sep">/</span>
+        <span :class="{ active: !isFr }">EN</span>
+      </button>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+const { t, isFr, toggleLocale } = useI18n()
+
 const links = [
-  { href: '#skills', label: 'Compétences' },
-  { href: '#experience', label: 'Expérience' },
-  { href: '#recommendations', label: 'Recommandations' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#skills', key: 'header.skills' },
+  { href: '/#experience', key: 'header.experience' },
+  { href: '/#recommendations', key: 'header.recommendations' },
+  { href: '/#contact', key: 'header.contact' },
 ]
 
 const isScrolled = ref(false)
@@ -95,5 +103,35 @@ onMounted(() => {
 
 .nav-link:hover {
   color: var(--text-primary);
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent);
+}
+
+.lang-toggle .active {
+  color: var(--accent-hover);
+}
+
+.lang-sep {
+  color: var(--border);
+  font-weight: 400;
 }
 </style>

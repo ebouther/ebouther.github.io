@@ -9,7 +9,7 @@
         :in-view-options="{ once: true }"
         :transition="{ duration: 0.8 }"
       >
-        Mon <span>parcours</span>
+        {{ t('experience.title') }}<span>{{ t('experience.titleHighlight') }}</span>
       </Motion>
       <div class="timeline">
         <Motion
@@ -35,6 +35,9 @@
             <div class="timeline-tags">
               <span v-for="tag in exp.tags" :key="tag" class="tag">{{ tag }}</span>
             </div>
+            <NuxtLink v-if="exp.studyHref" :to="exp.studyHref" class="study-link">
+              {{ t('experience.studyLink') }}
+            </NuxtLink>
           </div>
         </Motion>
       </div>
@@ -43,32 +46,22 @@
 </template>
 
 <script setup lang="ts">
-const experiences = [
-  {
-    date: '2020 - Présent',
-    type: 'Mission',
-    role: 'DevOps & Développeur Backend',
-    company: 'IEA Paris · Centres de recherche',
-    description: 'Infrastructure as Code (IaC) AWS + Terraform/Terragrunt sur environnements dev/stage/prod. Mise en place de bases MongoDB Atlas, pipelines CI/CD GitHub Actions avec runners self-hosted sur ECS, APIs GraphQL via AWS AppSync, mailing avec SES & Workmail, et monitoring/error tracking sur EC2 (Grafana, Sentry, Ackee).',
-    tags: ['AWS', 'Terraform', 'Terragrunt', 'MongoDB Atlas', 'GraphQL', 'AppSync', 'GitHub Actions', 'ECS', 'Node.js']
-  },
-  {
-    date: '2017 - 2020',
-    type: 'Mission',
-    role: 'Développeur Backend / DevOps',
-    company: 'Euler Hermes & Moody\'s · Courbevoie',
-    description: 'Développement Backend et DevOps pour le projet TRIBRating. Administration de bases de données PostgreSQL, déploiement serverless sur AWS, automatisation Terraform, pipelines Jenkins, stack Elasticsearch/Kibana pour la recherche et l\'analytique.',
-    tags: ['Node.js', 'PostgreSQL', 'Terraform', 'AWS', 'Python', 'Bash', 'Serverless', 'Elasticsearch', 'Kibana', 'Jenkins', 'REST API']
-  },
-  {
-    date: '2016',
-    type: 'Stage',
-    role: 'Conception protocole réseau',
-    company: 'CNRS-IN2P3-CSNSM · Orsay',
-    description: 'Création du protocole réseau RATP (Reliable Asynchronous Transport Protocol) en Ada. RATP fiabilise UDP tout en assurant l\'ordre et l\'intégrité des données à haut débit (10 Gb/s), avec une gestion asynchrone des pertes contrairement à TCP.',
-    tags: ['Ada', 'UDP', 'Réseau', 'Protocole', 'Haut débit']
-  }
-]
+interface Experience {
+  date: string
+  type: string
+  role: string
+  company: string
+  description: string
+  tags: string[]
+  studyHref?: string
+}
+
+const { t, tv, locale } = useI18n()
+
+const experiences = computed<Experience[]>(() => {
+  const raw = tv('experience.items')
+  return Array.isArray(raw) ? (raw as unknown as Experience[]) : []
+})
 </script>
 
 <style scoped>
@@ -163,5 +156,19 @@ const experiences = [
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.study-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.study-link:hover {
+  color: var(--accent-hover);
 }
 </style>

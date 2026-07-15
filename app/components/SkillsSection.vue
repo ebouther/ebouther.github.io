@@ -82,6 +82,8 @@ interface Domain {
   groups: DomainGroup[]
 }
 
+const { t, tv, locale } = useI18n()
+
 const icons = {
   cloud: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>`,
   infra: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1"/><circle cx="6" cy="18" r="1"/></svg>`,
@@ -91,57 +93,22 @@ const icons = {
   arch: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>`,
 }
 
-const domains: Domain[] = [
-  {
-    title: 'Cloud & Backend', subtitle: 'AWS Serverless Systems', accent: '#6366f1', icon: icons.cloud,
-    groups: [
-      { label: 'Compute', items: ['Lambda', 'ECS'] },
-      { label: 'API', items: ['API Gateway', 'AppSync'] },
-      { label: 'Data', items: ['DynamoDB', 'S3', 'RDS', 'Redis'] },
-      { label: 'Eventing', items: ['SQS', 'SNS', 'EventBridge', 'Step Functions'] },
-    ],
-  },
-  {
-    title: 'Infrastructure', subtitle: 'IaC & Automation', accent: '#22c55e', icon: icons.infra,
-    groups: [
-      { label: 'Provisioning', items: ['Terraform', 'Terragrunt'] },
-      { label: 'Configuration', items: ['Ansible'] },
-      { label: 'Containers', items: ['Docker'] },
-      { label: 'Orchestration', items: ['ECS / Fargate (AWS)', 'Kubernetes (basic knowledge)'] },
-    ],
-  },
-  {
-    title: 'CI / CD', subtitle: 'Automation', accent: '#f59e0b', icon: icons.cicd,
-    groups: [
-      { label: 'Pipelines', items: ['GitHub Actions'] },
-      { label: 'Runners', items: ['Self-hosted', 'ECS Runners'] },
-    ],
-  },
-  {
-    title: 'Observability', subtitle: 'Monitoring & Debugging', accent: '#ef4444', icon: icons.observability,
-    groups: [
-      { label: 'Metrics', items: ['CloudWatch', 'Prometheus', 'Grafana'] },
-      { label: 'Logging', items: ['CloudWatch Logs'] },
-      { label: 'Tracing', items: ['OpenTelemetry', 'AWS X-Ray'] },
-      { label: 'Errors', items: ['Sentry'] },
-    ],
-  },
-  {
-    title: 'Backend', subtitle: 'API & Application Layer', accent: '#06b6d4', icon: icons.backend,
-    groups: [
-      { label: 'Languages', items: ['Node.js', 'TypeScript', 'Python'] },
-      { label: 'APIs', items: ['REST', 'GraphQL'] },
-      { label: 'Architecture', items: ['Clean Architecture', 'CQRS'] },
-    ],
-  },
-  {
-    title: 'Architecture', subtitle: 'Design & Principles', accent: '#a855f7', icon: icons.arch,
-    groups: [
-      { label: 'Core patterns', items: ['Serverless', 'Event-Driven', 'Microservices'] },
-      { label: 'Cloud principles', items: ['12-Factor App', 'AWS Well-Architected Framework'] },
-    ],
-  },
-]
+const accents = ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4', '#a855f7']
+
+const domains = computed<Domain[]>(() => {
+  const raw = tv('skills.domains')
+  const data = (Array.isArray(raw) ? raw : []) as unknown as DomainGroup[]
+  return data.map((d: any, i: number) => ({
+    title: d.title,
+    subtitle: d.subtitle,
+    accent: accents[i],
+    icon: [icons.cloud, icons.infra, icons.cicd, icons.observability, icons.backend, icons.arch][i],
+    groups: d.groups.map((g: DomainGroup) => ({
+      label: g.label,
+      items: g.items,
+    })),
+  }))
+})
 </script>
 
 <style scoped>
