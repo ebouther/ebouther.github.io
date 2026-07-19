@@ -38,6 +38,9 @@
             <NuxtLink v-if="exp.studyHref" :to="exp.studyHref" class="study-link">
               {{ t('experience.studyLink') }}
             </NuxtLink>
+            <a v-if="exp.externalHref" :href="exp.externalHref" target="_blank" rel="noopener noreferrer" class="study-link">
+              {{ t('experience.externalLink') }}
+            </a>
           </div>
         </Motion>
       </div>
@@ -54,6 +57,7 @@ interface Experience {
   description: string
   tags: string[]
   studyHref?: string
+  externalHref?: string
 }
 
 const { t, tv, locale } = useI18n()

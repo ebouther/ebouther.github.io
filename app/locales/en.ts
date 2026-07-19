@@ -100,6 +100,7 @@ export const en = {
           'Infrastructure as Code (IaC) on AWS with Terraform/Terragrunt across dev/stage/prod environments. Set up MongoDB Atlas databases, CI/CD pipelines with GitHub Actions on self-hosted ECS runners, GraphQL APIs via AWS AppSync, email workflows with SES & Workmail, and monitoring/error tracking on EC2 (Grafana, Sentry, Ackee).',
         tags: ['AWS', 'Terraform', 'Terragrunt', 'MongoDB Atlas', 'GraphQL', 'AppSync', 'GitHub Actions', 'ECS', 'Node.js'],
         studyHref: '/case-studies/iea-paris',
+        externalHref: 'https://paris.pias.science/pdfs/netboards.pdf',
       },
       {
         date: '2017 - 2020',
@@ -109,6 +110,7 @@ export const en = {
         description:
           'Backend development and DevOps for the TRIBRating project. PostgreSQL database administration, serverless deployment on AWS, Terraform automation, Jenkins pipelines, Elasticsearch/Kibana stack for search and analytics.',
         tags: ['Node.js', 'PostgreSQL', 'Terraform', 'AWS', 'Python', 'Bash', 'Serverless', 'Elasticsearch', 'Kibana', 'Jenkins', 'REST API'],
+        externalHref: 'https://www.globalbrandsmagazine.com/euler-hermes-rating-launches-new-sme-midcap-rating-service/',
       },
       {
         date: '2016',
@@ -121,6 +123,7 @@ export const en = {
       },
     ],
     studyLink: 'View case study →',
+    externalLink: 'Read article →',
   },
 
   recommendations: {

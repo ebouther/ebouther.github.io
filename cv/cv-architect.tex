@@ -1,0 +1,105 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[11pt, a4paper]{awesome-cv}
+
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+\colorlet{awesome}{awesome-emerald}
+
+\setbool{acvSectionColorHighlight}{true}
+
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+\name{Eliot}{B.}
+\position{Cloud Architect · AWS Platform Engineer · Freelance}
+\address{Paris, France}
+\email{eliot.boutherin@gmail.com}
+\linkedin{eliot-boutherin}
+\quote{Cloud Architect spécialisé AWS et Platform Engineering, j'accompagne les entreprises dans la conception d'architectures cloud scalables, l'automatisation des infrastructures et la mise en place de plateformes DevOps modernes.}
+
+\begin{document}
+
+\makecvheader[C]
+
+\makecvfooter
+  {\today}
+  {Eliot B. · Curriculum Vitae}
+  {\thepage}
+
+\cvsection{Core Expertise}
+
+\begin{cvskills}
+  \cvskill{Cloud Architecture}{AWS serverless, architectures multi-environnements, scalabilité et sécurité}
+  \cvskill{Infrastructure as Code}{Terraform, Terragrunt, OpenTofu — modules réutilisables et pipelines IaC}
+  \cvskill{Platform Engineering}{CI/CD, automatisation des plateformes, GitHub Actions, self-hosted runners}
+  \cvskill{Backend Development}{Node.js, TypeScript, APIs REST \& GraphQL, AWS Lambda}
+\end{cvskills}
+
+\cvsection{Professional Experience}
+
+\cventry
+  {Cloud Architect \& Platform Engineer}
+  {\textbf{Plateforme Scientifique} · IEA Paris}
+  {Paris}
+  {2021 — Présent}
+  {\textit{Conception et pilotage d'une architecture cloud complète pour une plateforme web scientifique multi-tenant hébergée sur AWS. Accompagnement de la migration progressive d'architectures historiques vers des solutions serverless modernes.}
+  \begin{cvitems}
+    \item \textbf{Architecture AWS:} Conception et évolution d'une infrastructure serverless multi-comptes (Lambda, AppSync, CloudFront, S3, Route53, ACM, IAM) supportant plusieurs environnements isolés (dev, staging, production).
+    \item \textbf{Infrastructure as Code:} Implémentation complète avec Terraform et Terragrunt. Création de modules réutilisables permettant le déploiement reproductible et standardisé de l'ensemble des ressources.
+    \item \textbf{CI/CD intelligents:} Mise en place de pipelines GitHub Actions avec détection automatique des changements impactés et déploiements ciblés par environnement, réduisant les temps de cycle de déploiement.
+    \item \textbf{Backend:} Développement d'APIs TypeScript sur AWS Lambda avec AppSync (GraphQL). Gestion de bases de données MongoDB Atlas et PostgreSQL.
+    \item \textbf{CDN \& Edge:} Configuration et optimisation de CloudFront avec S3, déploiements statiques, configuration DNS via Route53 et gestion des certificats ACM.
+    \item \textbf{Environnements multiples:} Gestion et isolation de 3 environnements AWS (dev, staging, production) avec stratégie de déploiement progressive et validation automatisée.
+  \end{cvitems}}
+
+\cventry
+  {Backend Developer \& Cloud Engineer}
+  {\textbf{Missions Freelance} · Divers Clients (startups, PME, institutions)}
+  {Paris}
+  {2018 — 2021}
+  {\begin{cvitems}
+    \item Développement d'APIs backend et conception de services cloud adaptés aux besoins métier.
+    \item Automatisation complète d'infrastructures et mise en place de pipelines CI/CD.
+    \item Maintenance et évolution de plateformes existantes : migrations monolithe vers serverless, infrastructure legacy vers Infrastructure as Code.
+    \item Accompagnement d'équipes dans l'adoption des pratiques DevOps et de l'Infrastructure as Code.
+  \end{cvitems}}
+
+\newpage
+
+\cvsection{Technical Stack}
+
+\begin{cvskills}
+  \cvskill{Cloud}{AWS (Lambda, AppSync, CloudFront, S3, EC2, Route53, ACM, SSM, IAM)}
+  \cvskill{Infrastructure as Code}{Terraform, Terragrunt, OpenTofu}
+  \cvskill{CI/CD}{GitHub Actions, Self-hosted Runners, Déploiements automatisés}
+  \cvskill{Backend}{Node.js, TypeScript, REST APIs, GraphQL, MongoDB, PostgreSQL, Supabase}
+  \cvskill{Tools}{Git, Linux, Bash, Serverless Framework}
+\end{cvskills}
+
+\cvsection{Key Projects \& Achievements}
+
+\begin{cvparagraph}
+\begin{itemize}[leftmargin=2ex, nosep, noitemsep]
+  \item \textbf{Architecture serverless complète:} Conception et déploiement d'une plateforme scientifique multi-tenant sur AWS, combinant Lambda, AppSync, CloudFront et S3 pour une scalabilité horizontale et des coûts maîtrisés.
+  \item \textbf{Modules Terraform réutilisables:} Création d'une librairie de modules Terraform mutualisés, réduisant le temps de déploiement de nouvelles infrastructures de 70\%.
+  \item \textbf{Pipeline CI/CD intelligent:} Implémentation d'un système de détection de changements dans GitHub Actions permettant des déploiements ciblés, réduisant les temps de build de 60\%.
+  \item \textbf{Migration cloud:} Accompagnement de la migration d'architectures monolithes vers des solutions serverless, avec zéro temps d'arrêt.
+\end{itemize}
+\end{cvparagraph}
+
+\cvsection{Education}
+
+\begin{cvskills}
+  \cvskill{Formation}{Ingénierie informatique — spécialisation Cloud et Systèmes distribués}
+  \cvskill{Certifications}{AWS Solutions Architect (en cours)}
+\end{cvskills}
+
+\cvsection{Languages}
+
+\begin{cvskills}
+  \cvskill{Français}{Natif}
+  \cvskill{English}{Courant — professionnel}
+\end{cvskills}
+
+\end{document}
