@@ -104,8 +104,8 @@
             <table class="account-table">
               <thead>
                 <tr>
-                  <th>Account</th>
-                  <th>Purpose</th>
+                  <th scope="col">{{ t('caseStudyIea.accountsTable.account') }}</th>
+                  <th scope="col">{{ t('caseStudyIea.accountsTable.purpose') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -347,6 +347,7 @@ const sections = computed<SectionData[]>(() => {
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 16px;
+  max-width: 68ch;
 }
 
 .content-block p:last-child {

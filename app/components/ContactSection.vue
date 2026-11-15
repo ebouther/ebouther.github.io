@@ -190,7 +190,6 @@ const contactLinks = computed(() => [
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  opacity: 0.6;
 }
 
 .contact-value {

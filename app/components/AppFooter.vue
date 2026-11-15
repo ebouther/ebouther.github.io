@@ -1,12 +1,13 @@
 <template>
   <footer class="footer">
     <div class="container footer-inner">
-      <p class="footer-text">&copy; {{ year }} Eliot Boutherin. Tous droits réservés.</p>
+      <p class="footer-text">&copy; {{ year }} Eliot Boutherin. {{ t('footer.rights') }}</p>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const year = new Date().getFullYear()
 </script>
 

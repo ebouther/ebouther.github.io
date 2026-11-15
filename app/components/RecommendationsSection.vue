@@ -110,7 +110,6 @@ const recommendations = computed<Recommendation[]>(() => {
 .rec-date {
   font-size: 0.75rem;
   color: var(--text-secondary);
-  opacity: 0.7;
 }
 
 .rec-text {
@@ -125,10 +124,8 @@ const recommendations = computed<Recommendation[]>(() => {
   font-size: 0.88rem;
   color: var(--text-primary);
   line-height: 1.6;
-  padding: 12px 16px;
-  background: var(--accent-dim);
-  border-radius: 10px;
-  border-left: 3px solid var(--accent);
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
   margin-bottom: 12px;
 }
 

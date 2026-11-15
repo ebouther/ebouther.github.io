@@ -10,7 +10,7 @@
           :in-view-options="{ once: true }"
           :transition="{ duration: 0.8 }"
         >
-          <span class="gradient-text">{{ t('caseStudies.title') }}</span>
+          <span class="accent-text">{{ t('caseStudies.title') }}</span>
         </Motion>
         <Motion
           as="p"
@@ -194,7 +194,7 @@ const studies = computed<StudyItem[]>(() => {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: var(--accent);
+  color: var(--accent-hover);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;

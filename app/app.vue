@@ -1,16 +1,21 @@
 <template>
-  <div class="app-wrapper">
-    <BackgroundAnimation v-if="showBg" />
-    <div class="app-content">
-      <AppHeader />
-      <NuxtPage />
-      <AppFooter />
+  <MotionConfig reduced-motion="user">
+    <div class="app-wrapper">
+      <BackgroundAnimation v-if="showBg" />
+      <div class="app-content">
+        <a href="#main-content" class="skip-link">{{ isFr ? 'Aller au contenu' : 'Skip to content' }}</a>
+        <AppHeader />
+        <div id="main-content" tabindex="-1">
+          <NuxtPage />
+        </div>
+        <AppFooter />
+      </div>
     </div>
-  </div>
+  </MotionConfig>
 </template>
 
 <script setup lang="ts">
-const { initLocale } = useI18n()
+const { initLocale, isFr } = useI18n()
 
 const showBg = ref(false)
 

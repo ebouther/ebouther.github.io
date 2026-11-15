@@ -65,7 +65,6 @@ if (import.meta.client) {
   border-top: 1px solid rgba(99, 102, 241, 0.1);
   border-bottom: 1px solid rgba(99, 102, 241, 0.1);
   background: rgba(10, 10, 15, 0.5);
-  backdrop-filter: blur(8px);
   padding: 10px 0;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   font-size: 0.8rem;
@@ -92,14 +91,14 @@ if (import.meta.client) {
 
 .metric-label {
   color: var(--text-secondary);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
 .metric-suffix {
   color: #7878a0;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
 .metric-divider {
@@ -114,13 +113,7 @@ if (import.meta.client) {
 
 .status-track {
   color: #22c55e;
-  animation: pulse-dot 2s ease-in-out infinite;
-  font-size: 0.6rem;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  font-size: 0.75rem;
 }
 
 @media (max-width: 768px) {
