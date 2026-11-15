@@ -1,4 +1,8 @@
 export const en = {
+  footer: {
+    rights: 'All rights reserved.',
+  },
+
   header: {
     skills: 'Skills',
     experience: 'Experience',
@@ -172,6 +176,10 @@ export const en = {
   },
 
   caseStudyIea: {
+    accountsTable: {
+      account: 'Account',
+      purpose: 'Purpose',
+    },
     backLink: '← Back to case studies',
     hero: {
       title: 'Building a Multi-Tenant Research Platform on AWS',

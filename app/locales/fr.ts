@@ -1,4 +1,8 @@
 export const fr = {
+  footer: {
+    rights: 'Tous droits réservés.',
+  },
+
   header: {
     skills: 'Compétences',
     experience: 'Expérience',
@@ -172,6 +176,10 @@ export const fr = {
   },
 
   caseStudyIea: {
+    accountsTable: {
+      account: 'Compte',
+      purpose: 'Usage',
+    },
     backLink: '← Retour aux études de cas',
     hero: {
       title: 'Conception d\'une plateforme de recherche multi-tenant sur AWS',
