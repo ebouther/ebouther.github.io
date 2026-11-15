@@ -1,7 +1,6 @@
 <template>
   <div class="bg-canvas" aria-hidden="true">
     <div class="gradient-bg" />
-    <div class="mesh-bg" />
     <!-- Network graph (div-based for Firefox compatibility) -->
     <div class="network">
       <div
@@ -62,15 +61,8 @@
       />
     </div>
 
-    <!-- Scanline overlay -->
-    <div class="scanlines" />
-
     <!-- Glowing orbs -->
     <div class="glow g1" />
-    <div class="glow g2" />
-    <div class="glow g3" />
-    <div class="glow g4" />
-    <div class="glow g5" />
   </div>
 </template>
 
@@ -151,7 +143,7 @@ const floatIcons = Array.from({ length: 4 }, (_, i) => ({
   svg: iconSvgs[i % iconSvgs.length],
 }))
 
-const particleData = Array.from({ length: 15 }, (_, i) => ({
+const particleData = Array.from({ length: 8 }, (_, i) => ({
   x: Math.random() * 100,
   y: Math.random() * 100,
   size: 1 + Math.random() * 2.5,
@@ -178,16 +170,6 @@ const particleData = Array.from({ length: 15 }, (_, i) => ({
   background: linear-gradient(180deg, #0b0d1a 0%, #0f1225 20%, #12142d 40%, #0a0c1a 60%, #0b0d1a 100%);
 }
 
-/* Mesh grid */
-.mesh-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
 /* Network graph (div-based) */
 .network {
   position: absolute;
@@ -200,12 +182,7 @@ const particleData = Array.from({ length: 15 }, (_, i) => ({
   height: 1px;
   background: linear-gradient(90deg, rgba(129, 140, 248, 0.6), rgba(129, 140, 248, 0.05));
   transform-origin: 0 0;
-  animation: link-pulse 4s ease-in-out infinite;
-}
-
-@keyframes link-pulse {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.6; }
+  opacity: 0.4;
 }
 
 .dot {
@@ -216,12 +193,7 @@ const particleData = Array.from({ length: 15 }, (_, i) => ({
   margin-top: -3px;
   border-radius: 50%;
   background: rgba(129, 140, 248, 0.8);
-  animation: dot-glow 4s ease-in-out infinite;
-}
-
-@keyframes dot-glow {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.7; }
+  opacity: 0.5;
 }
 
 /* Floating infrastructure icons */
@@ -261,21 +233,6 @@ const particleData = Array.from({ length: 15 }, (_, i) => ({
   100% { transform: translate(5px, -15px) scale(1.2); }
 }
 
-/* Scanline overlay */
-.scanlines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0) 0px,
-    rgba(0, 0, 0, 0) 2px,
-    rgba(0, 0, 0, 0.08) 2px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
-  pointer-events: none;
-  background-size: 100% 4px;
-}
-
 /* Glowing orbs */
 .glow {
   position: absolute;
@@ -291,42 +248,6 @@ const particleData = Array.from({ length: 15 }, (_, i) => ({
   background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0.12) 40%, transparent 70%);
 }
 
-.g2 {
-  width: 450px;
-  height: 450px;
-  top: 35%;
-  right: -10%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0.1) 40%, transparent 70%);
-  animation-delay: -2s;
-}
-
-.g3 {
-  width: 400px;
-  height: 400px;
-  bottom: -5%;
-  left: 25%;
-  background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.08) 40%, transparent 70%);
-  animation-delay: -4s;
-}
-
-.g4 {
-  width: 350px;
-  height: 350px;
-  top: 20%;
-  left: 35%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%);
-  animation-delay: -6s;
-}
-
-.g5 {
-  width: 380px;
-  height: 380px;
-  bottom: 15%;
-  right: 10%;
-  background: radial-gradient(circle, rgba(249, 115, 22, 0.2) 0%, rgba(249, 115, 22, 0.06) 40%, transparent 70%);
-  animation-delay: -3s;
-}
-
 @keyframes glow-float {
   0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
   100% { transform: translate(30px, -20px) scale(1.1); opacity: 1; }
@@ -334,7 +255,6 @@ const particleData = Array.from({ length: 15 }, (_, i) => ({
 
 @media (max-width: 768px) {
   .network { opacity: 0.3; }
-  .g3, .g4, .g5 { display: none; }
   .float-icon { display: none; }
   .particle { display: none; }
 }
