@@ -1,19 +1,32 @@
 <template>
   <header
     class="header"
-    :class="{ scrolled: isScrolled }"
+    :class="{ scrolled: isScrolled, 'menu-open': menuOpen }"
+    @keydown.esc="menuOpen = false"
   >
     <div class="container header-inner">
       <NuxtLink to="/" class="logo">EB</NuxtLink>
-      <nav class="nav">
-        <NuxtLink v-for="link in links" :key="link.href" :to="link.href" class="nav-link">{{ t(link.key) }}</NuxtLink>
-        <NuxtLink to="/case-studies" class="nav-link">{{ t('header.caseStudies') }}</NuxtLink>
+      <nav id="site-nav" class="nav" :class="{ open: menuOpen }" aria-label="Main">
+        <NuxtLink v-for="link in links" :key="link.href" :to="link.href" class="nav-link" @click="menuOpen = false">{{ t(link.key) }}</NuxtLink>
+        <NuxtLink to="/case-studies" class="nav-link" @click="menuOpen = false">{{ t('header.caseStudies') }}</NuxtLink>
       </nav>
-      <button class="lang-toggle" @click="toggleLocale" :title="isFr ? 'Switch to English' : 'Passer en français'">
-        <span :class="{ active: isFr }">FR</span>
-        <span class="lang-sep">/</span>
-        <span :class="{ active: !isFr }">EN</span>
-      </button>
+      <div class="header-actions">
+        <button class="lang-toggle" @click="toggleLocale" :title="isFr ? 'Switch to English' : 'Passer en français'">
+          <span :class="{ active: isFr }">FR</span>
+          <span class="lang-sep">/</span>
+          <span :class="{ active: !isFr }">EN</span>
+        </button>
+        <button
+          class="menu-toggle"
+          type="button"
+          :aria-expanded="menuOpen"
+          aria-controls="site-nav"
+          :aria-label="menuOpen ? (isFr ? 'Fermer le menu' : 'Close menu') : (isFr ? 'Ouvrir le menu' : 'Open menu')"
+          @click="menuOpen = !menuOpen"
+        >
+          <span class="menu-bars" aria-hidden="true" />
+        </button>
+      </div>
     </div>
   </header>
 </template>
@@ -29,6 +42,7 @@ const links = [
 ]
 
 const isScrolled = ref(false)
+const menuOpen = ref(false)
 
 let ticking = false
 onMounted(() => {
@@ -105,6 +119,12 @@ onMounted(() => {
   color: var(--text-primary);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .lang-toggle {
   display: flex;
   align-items: center;
@@ -131,7 +151,92 @@ onMounted(() => {
 }
 
 .lang-sep {
-  color: var(--border);
+  color: var(--text-secondary);
   font-weight: 400;
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-bars,
+.menu-bars::before,
+.menu-bars::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.menu-bars {
+  position: relative;
+}
+
+.menu-bars::before,
+.menu-bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.menu-bars::before {
+  top: -6px;
+}
+
+.menu-bars::after {
+  top: 6px;
+}
+
+.menu-open .menu-bars {
+  background: transparent;
+}
+
+.menu-open .menu-bars::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-open .menu-bars::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 24px 16px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    font-size: 1rem;
+    color: var(--text-primary);
+  }
 }
 </style>
