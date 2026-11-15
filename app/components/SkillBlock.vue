@@ -67,25 +67,9 @@ defineProps<{
   width: 100%;
 }
 
-.skill-block::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--accent);
-  opacity: 0.5;
-  transition: opacity 0.25s;
-}
-
 .skill-block:hover {
   border-color: var(--accent);
   box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 8%, transparent);
-}
-
-.skill-block:hover::before {
-  opacity: 0.9;
 }
 
 .skill-block-header {
@@ -125,11 +109,10 @@ defineProps<{
 }
 
 .skill-block-subtitle {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  opacity: 0.5;
 }
 
 .skill-group {
@@ -141,13 +124,12 @@ defineProps<{
 }
 
 .skill-group-label {
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 5px;
-  opacity: 0.5;
   font-family: 'SF Mono', 'Fira Code', monospace;
 }
 
@@ -161,10 +143,10 @@ defineProps<{
   display: inline-block;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   font-weight: 500;
   background: rgba(99, 102, 241, 0.06);
-  color: var(--accent);
+  color: var(--accent-hover);
   border: 1px solid rgba(99, 102, 241, 0.08);
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   transition: background 0.15s, border-color 0.15s;

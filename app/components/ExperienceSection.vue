@@ -165,7 +165,7 @@ const experiences = computed<Experience[]>(() => {
 .study-link {
   display: inline-block;
   margin-top: 16px;
-  color: var(--accent);
+  color: var(--accent-hover);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
