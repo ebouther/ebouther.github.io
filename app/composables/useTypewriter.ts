@@ -51,6 +51,10 @@ export function useTypewriter(texts: string[] | ComputedRef<string[]>, options?:
   function start() {
     if (!import.meta.client) return
     stop()
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      display.value = textsArray.value[0] ?? ''
+      return
+    }
     textIndex = 0
     charIndex = 0
     isDeleting = false
